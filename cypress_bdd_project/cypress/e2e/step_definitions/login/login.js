@@ -1,13 +1,12 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import LoginPage from "../../page_objects/LoginPage"; // <-- Pastikan path ini benar
 
-Given('I visit the login page', () => {
-    cy.visit('http://zero.webappsecurity.com/login.html')
+  Given('I visit the login page {string}', (url) => {
+      cy.visit(url);
   })
   
   When('I enter the username {string} and password {string}', (username, password) => {
-    cy.get('#user_login').type(username)
-    cy.get('#user_password').type(password)
-    cy.get('input[name="submit"]').click()
+    LoginPage.login(username, password); // Memanggil metode login dengan username dan password
   })
   
   Then('I should be logged in successfully', () => {
@@ -21,4 +20,5 @@ Given('I visit the login page', () => {
   Then('I should see the {string} page', (pageName) => {
     cy.contains(pageName).should('be.visible')
   })
+  
   
